@@ -7,11 +7,21 @@ namespace AutomatedCar.SystemComponents
     {
         private List<SystemComponent> components = new List<SystemComponent>();
 
-        public IReadOnlyDummyPacket DummyPacket { get; set; }
+        private IReadOnlyDummyPacket DummyPacket;
 
         public void RegisterComponent(SystemComponent component)
         {
             this.components.Add(component);
+        }
+
+        public IReadOnlyDummyPacket getIReadOnlyDummyPacket()
+        {
+            return this.DummyPacket;
+        }
+
+        public void setIReadOnlyDummyPacket(IReadOnlyDummyPacket packet)
+        {
+          this.DummyPacket = packet;
         }
 
         protected override void Tick()
