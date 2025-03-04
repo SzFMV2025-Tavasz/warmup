@@ -26,12 +26,11 @@
             int distanceXDiff = Math.Abs(circle.X - automatedCar.X);
             int distanceYDiff = Math.Abs(circle.Y - automatedCar.Y);
 
-            vfb.setIReadOnlyDummyPacket(new DummyPacket()
+            vfb.DummyPacket = new DummyPacket()
             {
                 DistanceX = distanceXDiff,
                 DistanceY = distanceYDiff
-            });
-
+            };
         }
     }
 }
