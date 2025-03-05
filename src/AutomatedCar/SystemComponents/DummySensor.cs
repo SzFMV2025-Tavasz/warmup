@@ -10,10 +10,11 @@
     public class DummySensor : SystemComponent
     {
         private AutomatedCar automatedCar { get; set; }
-
+        private Circle circle { get; set; }
         private DummyPacket dummyPacket { get; set; }
         public DummySensor(VirtualFunctionBus virtualFunctionBus, AutomatedCar automatedCar) : base(virtualFunctionBus)
         {
+            this.circle = World.Instance.WorldObjects.FindAll(x => (x as Circle) != null).FirstOrDefault() as Circle;
             this.dummyPacket = new DummyPacket();
             virtualFunctionBus.DummyPacket = dummyPacket;
             this.automatedCar = automatedCar;
@@ -21,11 +22,8 @@
 
         public override void Process()
         {
-            var circles = World.Instance.WorldObjects.FindAll(x => (x as Circle) != null);
-            Circle circle = circles.FirstOrDefault() as Circle;
-
-            int distanceXDiff = Math.Abs(circle.X - automatedCar.X);
-            int distanceYDiff = Math.Abs(circle.Y - automatedCar.Y);
+            int distanceXDiff = Math.Abs(this.circle.X - automatedCar.X);
+            int distanceYDiff = Math.Abs(this.circle.Y - automatedCar.Y);
 
             dummyPacket.DistanceX = distanceXDiff;
             dummyPacket.DistanceY = distanceYDiff;
