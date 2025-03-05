@@ -10,12 +10,18 @@
 
     public class DummySensor : SystemComponent
     {
-        public DummySensor(VirtualFunctionBus virtualFunctionBus) : base(virtualFunctionBus)
+        public DummySensor(VirtualFunctionBus virtualFunctionBus, AutomatedCar car) : base(virtualFunctionBus)
         {
+            dummyPacket = new DummyPacket();
+            autoCar = car;
+            circle = World.Instance.WorldObjects.FirstOrDefault(wo => wo is Circle) as Circle;
+            virtualFunctionBus.DummyPacket = dummyPacket;
         }
+
         DummyPacket dummyPacket;
-        Circle circle = World.Instance.WorldObjects.FirstOrDefault(wo => wo is Circle) as Circle;
-        AutomatedCar autoCar = World.Instance.ControlledCar;
+        Circle circle;
+        AutomatedCar autoCar;
+
         public override void Process()
         {
             dummyPacket.DistanceX = autoCar.X - circle.X;
